@@ -17,6 +17,11 @@ public class hello {
         System.out.println("hello git 分支测试4 ");
         System.out.println("hello git 分支测试4 ");
 
+                System.out.println("hello git 这是一个分支测试4 ");
+        System.out.println("hello git 这是一个分支测试4 ");
+        System.out.println("hello git 这是一个分支测试4 ");
+
+
 
 
     }

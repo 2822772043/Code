@@ -7,5 +7,10 @@ public class hello {
 
         System.out.println("hello git 这是一个分支测试 ");
 
+        System.out.println("hello git 这是一个分支测试2 ");
+        System.out.println("hello git 这是一个分支测试3 ");
+        System.out.println("hello git 这是一个分支测试4 ");
+
+
     }
 }

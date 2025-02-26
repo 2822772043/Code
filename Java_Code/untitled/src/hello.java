@@ -5,6 +5,7 @@ public class hello {
         System.out.println("hello git 这是一个测试 02");
         System.out.println("hello git 这是一个冲突测试 02");
 
+        System.out.println("hello git 这是一个分支测试 ");
 
     }
 }

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
-<mapper namespace="com.xinpo.mapper.EmployeeMapper">
+<mapper namespace="com.EmployeeMapper">
 
     <!-- 查询使用 select标签
             id = 方法名
@@ -12,7 +12,7 @@
 
         一个标签对应一个接口中的方法
      -->
-    <select id="selectEmployee" resultType="com.xinpo.pojo.Employee">
+    <select id="selectEmployee" resultType="com.Employee">
         <!-- #{empId}代表动态传入的参数,并且进行赋值!后面详细讲解 -->
         select emp_id empId,emp_name empName, emp_salary empSalary from
         t_emp where emp_id = #{empId}

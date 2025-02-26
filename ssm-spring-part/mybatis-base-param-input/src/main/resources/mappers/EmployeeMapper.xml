@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace=mapper接口类的全限定符, -->
+<mapper namespace="com.xinpo.mapper.EmployeeMapper">
+
+    <select id="selectEmployee" resultType="com.xinpo.pojo.Employee">
+
+        select emp_id empId , emp_name empName , emp_salary empSalary from t_emp where emp_id = #{empId}
+
+    </select>
+
+<!--    场景1
+            传入的单个简单类型 key随便写    一般情况下 推荐写参数名
+-->
+    
+    <delete id="deleteById">
+
+        delete from t_emp where emp_id = #{id}
+
+    </delete>
+
+    <select id="queryBySalary" resultType="com.xinpo.pojo.Employee">
+
+        select emp_id empId , emp_name empName , emp_salary empSalary
+        from t_emp
+        where emp_salary = #{salary}
+
+    </select>
+
+
+<!--    场景2
+            传入的是一个实体对象类型
+            key值写参数名（必须）
+-->
+    <insert id="insertEmp">
+
+        insert into t_emp (emp_name,emp_salary) value (#{empName},#{empSalary});
+
+    </insert>
+
+
+<!--    场景3
+            传入的多个简单类型 key值写参数名（必须）
+            key取值方案
+            1：注解指定 @Param 指定多个简单参数的key
+            List<Employee> queryByNameAndSalary( @Param ("a") String name , @Param ("b") Double salary);
+
+            where emp_name =#{a} and emp_salary = #{b}
+
+            2：mybatis默认机制
+            arg0,arg1,arg2 ......   形参从左到右依次对应
+            (name,salary)
+                        name 对应 key = arg0
+                        salary   key = arg1
+-->
+
+    <select id="queryByNameAndSalary" resultType="com.xinpo.pojo.Employee">
+
+        select emp_id empId , emp_name empName , emp_salary empSalary
+        from t_emp
+        where emp_name =#{name} and emp_salary = #{salary}
+
+    </select>
+
+
+
+<!--    场景4
+                传入的是map(name = 员工的名字    salary = 员工的薪水 )
+                key值写map的key
+-->
+    <insert id="insertEmpMap">
+
+        insert into t_emp (emp_name,emp_salary) value (#{name},#{salary});
+
+    </insert>
+
+
+</mapper>

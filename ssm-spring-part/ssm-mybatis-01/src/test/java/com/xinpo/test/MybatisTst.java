@@ -79,6 +79,17 @@ public class MybatisTst {
         SqlSession sqlSession = sessionFactory.openSession();
 
 //        获取接口的代理对象（代理技术），调用代理对象的方法，就会查找mapper接口的方法
+        /*
+        * 好的！通俗地说，EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+        * 这一步的作用就是：
+        * 1. 创建一个“桥梁”： 这行代码的作用是通过 SqlSession（MyBatis 的数据库操作入口），
+        *   创建一个 EmployeeMapper 接口的代理对象（也就是 mapper）。这个代理对象就像一个“桥梁”，连接了你的代码和数据库。
+        * 2. 自动帮你操作数据库：EmployeeMapper 是一个接口，里面定义了一些方法（比如 selectEmployee）。
+        *   通过这行代码，MyBatis 会自动根据接口中的方法名和数据库中的表名、字段名，
+        *   生成对应的 SQL 语句（比如 SELECT * FROM employee WHERE id = ?），并执行这些 SQL 语句。
+        * 3. 简化你的代码： 以前用 JDBC 写代码时，你需要手动写 SQL 语句、执行 SQL、处理结果等。
+        *   而 MyBatis 通过这行代码，帮你自动完成这些繁琐的操作，
+        * 你只需要调用 mapper 的方法（比如 mapper.selectEmployee(1)），就能直接拿到数据库的结果。*/
         EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
         Employee employee = mapper.selectEmployee(1);
         System.out.println("employee = " + employee);
@@ -104,6 +115,7 @@ public class MybatisTst {
         System.out.println("employee = " + employee);
 
         sqlSession.close();
+
 
     }
 

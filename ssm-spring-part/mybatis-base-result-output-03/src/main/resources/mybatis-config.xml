@@ -6,21 +6,13 @@
 
 <!--    开启mybatis的日志输出，选择使用system进行控制台输出-->
     <settings>
-        <!--        开启日志输出-->
         <setting name="logImpl" value="STDOUT_LOGGING"/>
-        <!-- 具体配置 -->
-        <!-- 从org.apache.ibatis.session.Configuration类中可以查看能使用的配置项 -->
-        <!-- 将mapUnderscoreToCamelCase属性配置为true，表示开启自动映射驼峰式命名规则 -->
-        <!-- 规则要求数据库表字段命名方式：单词_单词 -->
-        <!-- 规则要求Java实体类属性名命名方式：首字母小写的驼峰式命名 -->
-        <setting name="mapUnderscoreToCamelCase" value="true"/>
-
     </settings>
 
     <typeAliases>
 
-<!--        类型别名可为 Java 类型设置一个缩写名字。 它仅用于 XML 配置，意在降低冗余的全限定类名书写。-->
-<!--        下面的配置会导致com.xinpo.pojo.Employee 与employee等同效果-->
+        <!--        类型别名可为 Java 类型设置一个缩写名字。 它仅用于 XML 配置，意在降低冗余的全限定类名书写。-->
+        <!--        下面的配置会导致com.xinpo.pojo.Employee 与employee等同效果-->
         <package name="com.xinpo.pojo"/>
 
 

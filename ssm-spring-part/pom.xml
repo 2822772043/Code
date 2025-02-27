@@ -12,6 +12,7 @@
         <module>ssm-mybatis-01</module>
         <module>mybatis-base-param-input</module>
         <module>mybatis-base-result-output-03</module>
+        <module>mybatis-base-crud-04</module>
     </modules>
 
 
@@ -34,7 +35,11 @@
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.3.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.36</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>

@@ -18,11 +18,15 @@ public interface EmployeeMapper {
     //根据员工id 查询员工的工资
     String querySalaryById(Integer id);
 
-    Employee selectEmployee (Employee employee);
+    Employee selectEmployee (int id);
 
     Map<String,Object> selectEmpNameAndMaxSalary();
 
     List<Employee> selectAll();
+
+    List<String> queryNameBySalary(Double salary);
+
+    int insertEmp(Employee employee);
 
 
 }

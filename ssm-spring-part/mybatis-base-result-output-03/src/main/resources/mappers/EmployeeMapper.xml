@@ -20,7 +20,7 @@
 
     <select id="selectEmployee" resultType="employee">
 
-        select emp_id empId , emp_name empName , emp_salary empSalary
+        select *
         from t_emp
         where emp_id = #{empId}
 
@@ -42,5 +42,20 @@
         select emp_id empId,emp_name empName,emp_salary empSalary
         from t_emp
     </select>
+
+    <select id="queryNameBySalary" resultType="string">
+        select emp_name
+        from t_emp
+        where emp_salary > #{ salary }
+    </select>
+
+
+    <insert id="insertEmp">
+
+        insert into t_emp(emp_name , emp_salary)
+
+        value(#{empName},#{empSalary})
+
+    </insert>
 
 </mapper>

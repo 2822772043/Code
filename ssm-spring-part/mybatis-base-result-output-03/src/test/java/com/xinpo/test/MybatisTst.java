@@ -37,6 +37,25 @@ public class MybatisTst {
     }
 
     @Test
+    public void test02() throws IOException {
+
+        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        SqlSession sqlSession = sessionFactory.openSession();
+
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+
+        Employee employee = mapper.selectEmployee(1);
+
+        System.out.println("employee = " + employee);
+
+        sqlSession.close();
+
+    }
+
+    @Test
     public void testQueryEmpNameAndSalary() throws IOException {
 
         InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
@@ -76,4 +95,47 @@ public class MybatisTst {
 //            log.info("employee = " + employee);
         }
     }
+
+
+    @Test
+    public void test04() throws IOException {
+        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        SqlSession session = sessionFactory.openSession();
+
+        EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+        List allName = mapper.queryNameBySalary(200.00);
+
+        System.out.println("allName = " + allName);
+
+        session.close();
+
+    }
+
+    @Test
+    public void test05() throws IOException {
+        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+        SqlSession session = sessionFactory.openSession();
+
+        EmployeeMapper mapper = session.getMapper(EmployeeMapper.class);
+
+        Employee employee = new Employee();
+        employee.setEmpName("张三");
+        employee.setEmpSalary(800.00);
+
+        int rows = mapper.insertEmp(employee);
+
+        System.out.println("rows = " + rows);
+
+        session.commit();
+        session.close();
+
+    }
+
 }

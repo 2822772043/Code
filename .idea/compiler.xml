@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="mybatis-hign-dynsql-06" />
         <module name="mybatis-base-result-output-03" />
         <module name="ssm-mybatis-01" />
         <module name="mybatis-base-crud-04" />

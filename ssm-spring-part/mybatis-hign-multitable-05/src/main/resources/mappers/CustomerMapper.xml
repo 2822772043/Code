@@ -9,13 +9,12 @@
     <resultMap id="customerMap" type="Customer">
 
         <id column="customer_id" property="customerId"/>
-        <result column="customer_name" property="customerName"/>
-
+<!--        <result column="customer_name" property="customerName"/>-->
 
         <collection property="orderList" ofType="order">
             <id column="order_id" property="orderId"/>
-            <result column="order_name" property="orderName"/>
-            <result column="customer_id" property="customerId"/>
+<!--            <result column="order_name" property="orderName"/>-->
+<!--            <result column="customer_id" property="customerId"/>-->
         </collection>
 
     </resultMap>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="com.xinpo.mapper.EmployeeMapper">
+
+<!--    
+List<Employee> query(@Param("employeeName") String employeeName,@Param("salary") Double salary);
+动态查询
+如果传入了属性，就判断相等，如果不传入，不加对应的条件
+where if 判断传入的参数，最终是否添加语句
+    test 属性 内部做比较运算 如果为true 则执行if标签下的sql语句 如果为false 则不拼接标签内部的语句
+
+问题：
+    假如两个if都满足，则 select * from t_emp  where emp_name = #{name} and emp_salary = #{salary}
+    假如第一个if满足  select * from t_emp  where emp_name = #{name}
+    假如第二个if满足第一个不满足  select * from t_emp  where  and emp_salary = #{salary}  此处多了一个and 会报错
+    假如都不满足，则会多出个where
+
+    为了避免以上问题 此处引入where标签
+    作用：
+        1.自动添加where关键字 where标签内 有任何一个if 满足条件 则会自动添加where关键字。
+        2.自动去掉多余的and 以及 or 关键字
+
+
+
+-->
+    <select id="query" resultType="Employee">
+
+        select * from t_emp
+        <where>
+        <if test="employeeName != null">
+            emp_name = #{employeeName}
+        </if>
+        <if test="salary != null and salary > 100">
+            and
+            emp_salary = #{salary}
+        </if>
+        </where>
+
+    </select>
+
+    <update id="update" >
+
+        update t_emp
+        <set>
+            <if test="empName!=null">
+                emp_name = #{empName},
+            </if>
+            <if test="empSalary!=null">
+                emp_salary = #{empSalary}
+            </if>
+        </set>
+        where emp_id = #{empId}
+
+
+    </update>
+
+
+<!--
+ List<Employee> queryTrim(@Param("employeeName") String employeeName,@Param("salary") Double salary);
+
+ -->
+    <select id="queryTrim" resultType="Employee">
+
+        select * from t_emp
+        <trim prefix="where" prefixOverrides="and|or">
+            <if test="employeeName != null">
+                emp_name = #{employeeName}
+            </if>
+            <if test="salary != null and salary > 100">
+                and
+                emp_salary = #{salary}
+            </if>
+        </trim>
+
+    </select>
+
+<!--
+List<Employee> queryChoose(@Param("employeeName") String employeeName,@Param("salary") Double salary);
+-->
+
+    <select id="queryTrim" resultType="Employee">
+
+        select * from t_emp
+        where
+        <choose >
+            <when test="employeeName != null">
+                emp_name = #{employeeName}
+            </when>
+            <when test="salary != null ">
+                emp_salary = #{salary}
+            </when>
+            <otherwise>
+                1=1
+            </otherwise>
+        </choose>
+
+    </select>
+
+
+
+
+
+<!--  根据id 批量查询  List<Employee> queryBatch(@Param("ids") List<Integer> ids);-->
+
+    <select id="queryBatch" resultType="Employee">
+
+        select * from t_emp
+        where emp_id in
+
+<!--
+        collection 是指需要遍历哪个数组 如果此处不起别名（不加param）则需要填写arg0
+        open 遍历之前要追加的字符串
+        close 遍历结束加的字符串
+        separator 中间的分隔符
+        item 获取遍历项.把遍历到的东西赋值给item中的值
+-->
+        <foreach collection="ids" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+
+    </select>
+
+
+
+
+    <!--  //根据id 批量删除  int deleteBatch(@Param("ids") List<Integer> ids);-->
+    <delete id="deleteBatch">
+
+        delete from t_emp where emp_id in
+        where emp_id in
+        <foreach collection="ids" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+
+    </delete>
+
+<!--    int insertBatch(@Param("list")List<Employee> list);-->
+
+    <insert id="insertBatch">
+
+        insert into from t_emp (emp_name ,emp_salary)
+        values
+        <foreach collection="lsit" separator="," item="employee">
+            (#{employee.empName,#{employee.empSalary}})
+        </foreach>
+
+    </insert>
+
+
+
+<!--    int updateBatch(@Param("list")List<Employee> list);-->
+    <update id="updateBatch">
+
+        <foreach collection="list" item="emp">
+
+            update t_emp set emp_name = #{emp.empName } , emp_salary = #{emp.empSalary}
+            where emp_id = #{emp.empId};
+
+        </foreach>
+
+
+
+    </update>
+
+
+
+
+
+
+
+
+    
+</mapper>

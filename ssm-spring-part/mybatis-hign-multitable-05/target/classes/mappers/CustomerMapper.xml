@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="com.xinpo.mapper.CustomerMapper">
+
+<!--    按照泛型来写，不用管集合-->
+    <resultMap id="customerMap" type="Customer">
+
+        <id column="customer_id" property="customerId"/>
+<!--        <result column="customer_name" property="customerName"/>-->
+
+        <collection property="orderList" ofType="order">
+            <id column="order_id" property="orderId"/>
+<!--            <result column="order_name" property="orderName"/>-->
+<!--            <result column="customer_id" property="customerId"/>-->
+        </collection>
+
+    </resultMap>
+
+    <select id="queryList" resultMap="customerMap">
+
+        SELECT *
+        FROM t_order tor JOIN t_customer tcu
+        ON tor.customer_id = tcu.customer_id
+
+    </select>
+
+</mapper>

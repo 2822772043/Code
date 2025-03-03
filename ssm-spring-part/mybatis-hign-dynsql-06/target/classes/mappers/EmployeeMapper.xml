@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="com.xinpo.mapper.EmployeeMapper">
+
+<!--    
+List<Employee> query(@Param("employeeName") String employeeName,@Param("salary") Double salary);
+动态查询
+如果传入了属性，就判断相等，如果不传入，不加对应的条件
+where if 判断传入的参数，最终是否添加语句
+    test 属性 内部做比较运算 如果为true 则执行if标签下的sql语句 如果为false 则不拼接标签内部的语句
+
+问题：
+    假如两个if都满足，则 select * from t_emp  where emp_name = #{name} and emp_salary = #{salary}
+    假如第一个if满足  select * from t_emp  where emp_name = #{name}
+    假如第二个if满足第一个不满足  select * from t_emp  where  and emp_salary = #{salary}  此处多了一个and 会报错
+    假如都不满足，则会多出个where
+
+    为了避免以上问题 此处引入where标签
+    作用：
+        1.自动添加where关键字 where标签内 有任何一个if 满足条件 则会自动添加where关键字。
+        2.自动去掉多余的and 以及 or 关键字
+
+
+
+-->
+    <select id="query" resultType="Employee">
+
+        select * from t_emp
+        <where>
+        <if test="employeeName != null">
+            emp_name = #{employeeName}
+        </if>
+        <if test="salary != null and salary > 100">
+            and
+            emp_salary = #{salary}
+        </if>
+        </where>
+
+    </select>
+    
+    
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.TOrderMapper">
+
+    <resultMap id="BaseResultMap" type="generator.com.xinpo.pojo.TOrder">
+            <id property="orderId" column="order_id" jdbcType="INTEGER"/>
+            <result property="orderName" column="order_name" jdbcType="CHAR"/>
+            <result property="customerId" column="customer_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        order_id,order_name,customer_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_order
+        where  order_id = #{orderId,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_order
+        where  order_id = #{orderId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="order_id" keyProperty="orderId" parameterType="generator.com.xinpo.pojo.TOrder" useGeneratedKeys="true">
+        insert into t_order
+        ( order_id,order_name,customer_id
+        )
+        values (#{orderId,jdbcType=INTEGER},#{orderName,jdbcType=CHAR},#{customerId,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="order_id" keyProperty="orderId" parameterType="generator.com.xinpo.pojo.TOrder" useGeneratedKeys="true">
+        insert into t_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="orderId != null">order_id,</if>
+                <if test="orderName != null">order_name,</if>
+                <if test="customerId != null">customer_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="orderId != null">#{orderId,jdbcType=INTEGER},</if>
+                <if test="orderName != null">#{orderName,jdbcType=CHAR},</if>
+                <if test="customerId != null">#{customerId,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="generator.com.xinpo.pojo.TOrder">
+        update t_order
+        <set>
+                <if test="orderName != null">
+                    order_name = #{orderName,jdbcType=CHAR},
+                </if>
+                <if test="customerId != null">
+                    customer_id = #{customerId,jdbcType=INTEGER},
+                </if>
+        </set>
+        where   order_id = #{orderId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="generator.com.xinpo.pojo.TOrder">
+        update t_order
+        set 
+            order_name =  #{orderName,jdbcType=CHAR},
+            customer_id =  #{customerId,jdbcType=INTEGER}
+        where   order_id = #{orderId,jdbcType=INTEGER} 
+    </update>
+</mapper>

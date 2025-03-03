@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="springmvc-base-quick" />
+        <module name="springmvc-base-input-02" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
